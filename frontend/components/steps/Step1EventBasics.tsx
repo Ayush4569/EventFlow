@@ -1,6 +1,8 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { EventBasics, RequirementCategory } from "@/types/requirement";
+import { getTodayDateString } from "@/lib/dateUtils";
 
 interface Step1Props {
   data: EventBasics;
@@ -50,6 +52,8 @@ const CATEGORIES: {
   },
 ];
 
+const emptySubscribe = () => () => {};
+
 export default function Step1EventBasics({
   data,
   category,
@@ -57,6 +61,17 @@ export default function Step1EventBasics({
   onChange,
   onCategoryChange,
 }: Step1Props) {
+  const today = useSyncExternalStore(
+    emptySubscribe,
+    getTodayDateString,
+    () => ""
+  );
+
+  const minEndDate =
+    data.startDate && (!today || data.startDate >= today)
+      ? data.startDate
+      : today;
+
   return (
     <div className="space-y-6">
       <div className="border-b border-slate-800 pb-4">
@@ -197,6 +212,7 @@ export default function Step1EventBasics({
           <input
             id="start-date"
             type="date"
+            min={today || undefined}
             value={data.startDate}
             onChange={(e) => onChange("startDate", e.target.value)}
             className={`w-full px-3.5 py-2.5 rounded-lg border text-sm transition-all focus:outline-none ${
@@ -222,7 +238,7 @@ export default function Step1EventBasics({
           <input
             id="end-date"
             type="date"
-            min={data.startDate || undefined}
+            min={minEndDate || undefined}
             value={data.endDate}
             onChange={(e) => onChange("endDate", e.target.value)}
             className={`w-full px-3.5 py-2.5 rounded-lg border text-sm transition-all focus:outline-none ${

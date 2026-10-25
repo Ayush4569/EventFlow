@@ -179,7 +179,7 @@ export default function Step4ReviewSubmit({
             </span>
             <span className="text-2xl font-black text-emerald-400 tracking-tight">
               {categoryConfig.budget
-                ? `$${Number(categoryConfig.budget).toLocaleString()}`
+                ? `₹ ${Number(categoryConfig.budget).toLocaleString()}`
                 : "—"}
             </span>
           </div>

@@ -143,11 +143,11 @@ export default function Step2CategoryDetails({
                 htmlFor="planner-budget"
                 className="block text-sm font-medium text-slate-300 mb-1.5"
               >
-                Planner Budget (USD) <span className="text-rose-400">*</span>
+                Planner Budget (INR) <span className="text-rose-400">*</span>
               </label>
               <div className="relative">
                 <span className="absolute left-3.5 top-2.5 text-slate-500 font-semibold text-sm">
-                  $
+                  ₹
                 </span>
                 <input
                   id="planner-budget"
